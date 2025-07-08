@@ -85,12 +85,12 @@ class PokeRngR {
   state: number;
 
   constructor(seed: number) {
-    this.state = seed|0;
+    this.state = seed >>> 0;
   }
 
   next32(advances = 1) {
     for (let i = 0; i < advances; i++) {
-      this.state = (Math.imul(this.state, 0xeeb9eb65|0) + 0xa3561a1)|0;
+      this.state = (Math.imul(this.state, 0xeeb9eb65|0) + 0xa3561a1) >>> 0;
     }
     return this.state;
   }
@@ -113,6 +113,9 @@ function recoverIvSeed(
   // is used to cast all of the numbers as 32-bit integers to (hopefully)
   // 'improve' performance. Also Math.imul is used so that the multiplication
   // operations work correctly without needing to use BigInteger
+  // Also this uses (mostly) signed numbers for calculating part of the recovered IV seed
+  // as `|0` is much more consise than `>>> 0` (unsigned), so it is used as much as possible.
+  // Signed and unsigned would only differ with the % operation.
   const add = ivInterrupt ? 0xe97e7b6a|0 : 0x6073|0;
   const mul = ivInterrupt ? 0xc2a29a69|0 : 0x41c64e6d|0;
   const mod = ivInterrupt ? 0x3a89|0 : 0x67d3|0;
@@ -121,15 +124,15 @@ function recoverIvSeed(
   const seeds: number[] = [];
   const ivs1 = ((hp << 0) | (attack << 5) | (defense << 10)) << 16;
   const ivs2 = ((speed << 0) | (specialAttack << 5) | (specialDefense << 10)) << 16;
-  const diff = (ivs2 - ((Math.imul(ivs1, mul) + (ivInterrupt ? add : 0|0))|0)) << 16;
+  const diff = (ivs2 - ((Math.imul(ivs1, mul) + (ivInterrupt ? add : 0|0))|0)) >>> 16;
   const start1 = ((Math.imul(((Math.imul(diff, mod) + inc) >>> 16), pat)>>>0) % mod)|0;
   const start2 = ((Math.imul(((Math.imul(diff ^ 0x8000, mod) + inc) >>> 16), pat)>>>0) % mod)|0;
   for (const start of [start1, start2]) {
     for (let low = start; low < 0x10000; low += mod) {
       const seed = ivs1 | low;
       if (((Math.imul(seed, mul) + add) & 0x7fff0000) === ivs2) {
-        seeds.push(seed|0);
-        seeds.push(seed ^ 0x80000000);
+        seeds.push(seed >>> 0);
+        seeds.push((seed ^ 0x80000000) >>> 0);
       }
     }
   }
@@ -155,9 +158,9 @@ function getPidAndOriginSeedFromIvSeed(
   const seed = rng.next32();
   let pid;
   if (method === "Reverse Method 1") {
-    pid = (b << 0) | (a << 16);
+    pid = ((b << 0) | (a << 16)) >>> 0;
   } else {
-    pid = (a << 0) | (b << 16);
+    pid = ((a << 0) | (b << 16)) >>> 0;
   }
   return {
     seed: seed,
@@ -216,7 +219,7 @@ export function ivToPidResultFilter(
 ): boolean {
   const pid = result.pid;
   if (nature !== null) {
-    if (natures[(pid >>> 0) % 25] !== nature) {
+    if (natures[pid % 25] !== nature) {
       return false;
     }
   }

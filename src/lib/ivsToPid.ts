@@ -1,6 +1,7 @@
 /*
  * This file is part of ivs-to-pid.
  * © 2025 Luong "final" Truong
+ * © 2017-2024 by Admiral_Fish, bumba, and EzPzStreamz
  *
  * ivs-to-pid is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

@@ -49,6 +49,7 @@ interface InputData {
   gender: Gender;
   genderRatio: GenderRatio;
   ability: 0 | 1 | "";
+  tid: number;
 }
 
 function handleIvChange(
@@ -85,6 +86,7 @@ export default function IvsToPidForm() {
     gender: "Gender unknown",
     genderRatio: "U",
     ability: "",
+    tid: 0,
   });
   const [results, setResults] = React.useState<IvToPidState[]>([]);
   const natureOptions = natures.map((nature) => (
@@ -308,12 +310,35 @@ export default function IvsToPidForm() {
             </Select>
           </FormControl>
         </Grid>
+        <Grid size={{ xs: 12, sm: 4, md: 2 }}>
+          <TextField
+            fullWidth
+            label="TID"
+            value={inputData.tid}
+            onChange={(event) => {
+              if (/[^0-9]/.test(event.target.value)) {
+                event.preventDefault();
+                return;
+              }
+              const tidInput = Number(event.target.value) | 0;
+              const newInputData = { ...inputData };
+              if (tidInput >= (0 | 0) && tidInput <= (65535 | 0)) {
+                newInputData.tid = tidInput;
+              } else if (tidInput > (65535 | 0)) {
+                newInputData.tid = 65535 | 0;
+              } else {
+                newInputData.tid = 0 | 0;
+              }
+              setInputData(newInputData);
+            }}
+          />
+        </Grid>
         <Grid size={12}>
           <Button fullWidth type="submit" variant="contained">
             Find
           </Button>
         </Grid>
-        <IvsToPidOutput results={results} />
+        <IvsToPidOutput results={results} tid={inputData.tid} />
       </Grid>
     </Box>
   );

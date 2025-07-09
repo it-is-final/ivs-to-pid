@@ -134,6 +134,11 @@ export default function IvsToPidForm() {
             fullWidth
             label="HP"
             value={inputData.hp}
+            slotProps={{
+              htmlInput: {
+                inputMode: "numeric",
+              },
+            }}
             onChange={(event) =>
               handleIvChange(event, "hp", inputData, setInputData)
             }
@@ -144,6 +149,11 @@ export default function IvsToPidForm() {
             fullWidth
             label="Attack"
             value={inputData.attack}
+            slotProps={{
+              htmlInput: {
+                inputMode: "numeric",
+              },
+            }}
             onChange={(event) =>
               handleIvChange(event, "attack", inputData, setInputData)
             }
@@ -154,6 +164,11 @@ export default function IvsToPidForm() {
             fullWidth
             label="Defense"
             value={inputData.defense}
+            slotProps={{
+              htmlInput: {
+                inputMode: "numeric",
+              },
+            }}
             onChange={(event) =>
               handleIvChange(event, "defense", inputData, setInputData)
             }
@@ -164,6 +179,11 @@ export default function IvsToPidForm() {
             fullWidth
             label="Sp.Attack"
             value={inputData.specialAttack}
+            slotProps={{
+              htmlInput: {
+                inputMode: "numeric",
+              },
+            }}
             onChange={(event) =>
               handleIvChange(event, "specialAttack", inputData, setInputData)
             }
@@ -174,6 +194,11 @@ export default function IvsToPidForm() {
             fullWidth
             label="Sp.Defense"
             value={inputData.specialDefense}
+            slotProps={{
+              htmlInput: {
+                inputMode: "numeric",
+              },
+            }}
             onChange={(event) =>
               handleIvChange(event, "specialDefense", inputData, setInputData)
             }
@@ -184,6 +209,11 @@ export default function IvsToPidForm() {
             fullWidth
             label="Speed"
             value={inputData.speed}
+            slotProps={{
+              htmlInput: {
+                inputMode: "numeric",
+              },
+            }}
             onChange={(event) =>
               handleIvChange(event, "speed", inputData, setInputData)
             }
@@ -315,6 +345,11 @@ export default function IvsToPidForm() {
             fullWidth
             label="TID"
             value={inputData.tid}
+            slotProps={{
+              htmlInput: {
+                inputMode: "numeric",
+              },
+            }}
             onChange={(event) => {
               if (/[^0-9]/.test(event.target.value)) {
                 event.preventDefault();

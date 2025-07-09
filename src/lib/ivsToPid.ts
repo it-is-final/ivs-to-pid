@@ -243,26 +243,20 @@ function getPidGender(pid: number, genderRatio: GenderRatio): Gender {
 
 export function ivToPidResultFilter(
     nature: Nature | null,
-    gender: Gender | null,
-    genderRatio: GenderRatio | null,
+    gender: Gender,
+    genderRatio: GenderRatio,
     ability: 0 | 1 | null,
     result: IvToPidState,
 ): boolean {
     const pid = result.pid;
-    if (nature !== null) {
-        if (natures[pid % 25] !== nature) {
-            return false;
-        }
+    if (nature !== null && natures[pid % 25] !== nature) {
+        return false;
     }
-    if (gender !== null && genderRatio !== null) {
-        if (getPidGender(pid, genderRatio) !== gender) {
-            return false;
-        }
+    if (getPidGender(pid, genderRatio) !== gender) {
+        return false;
     }
-    if (ability !== null) {
-        if ((pid & 1) !== ability) {
-            return false;
-        }
+    if (ability !== null && (pid & 1) !== ability) {
+        return false;
     }
     return true;
 }

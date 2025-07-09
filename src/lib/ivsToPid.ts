@@ -154,7 +154,7 @@ function recoverIvSeed(
     return seeds;
 }
 
-interface IvToPidState {
+export interface IvToPidState {
     readonly seed: number;
     readonly pid: number;
     readonly method: RngMethod;

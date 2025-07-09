@@ -29,7 +29,7 @@ import {
   genders,
   type IvToPidState,
   recoverPokemonOriginSeedsFromIvs,
-  ivToPidResultFilter,
+  ivToPidStateFilter,
 } from "../lib/ivsToPid";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
@@ -88,7 +88,7 @@ export default function IvsToPidForm() {
     ability: "",
     tid: 0,
   });
-  const [results, setResults] = React.useState<IvToPidState[]>([]);
+  const [states, setStates] = React.useState<IvToPidState[]>([]);
   const natureOptions = natures.map((nature) => (
     <MenuItem key={nature} value={nature}>
       {nature}
@@ -107,23 +107,15 @@ export default function IvsToPidForm() {
   ));
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const results = recoverPokemonOriginSeedsFromIvs(
+    const states = recoverPokemonOriginSeedsFromIvs(
       inputData.hp,
       inputData.attack,
       inputData.defense,
       inputData.specialAttack,
       inputData.specialDefense,
       inputData.speed,
-    ).filter((result) =>
-      ivToPidResultFilter(
-        inputData.nature !== "" ? inputData.nature : null,
-        inputData.gender,
-        inputData.genderRatio,
-        inputData.ability !== "" ? inputData.ability : null,
-        result,
-      ),
     );
-    setResults(results);
+    setStates(states);
   }
 
   return (
@@ -381,7 +373,17 @@ export default function IvsToPidForm() {
             Find
           </Button>
         </Grid>
-        <IvsToPidOutput results={results} tid={inputData.tid} />
+        <IvsToPidOutput
+          states={states.filter(
+            ivToPidStateFilter(
+              inputData.nature !== "" ? inputData.nature : null,
+              inputData.gender,
+              inputData.genderRatio,
+              inputData.ability !== "" ? inputData.ability : null,
+            ),
+          )}
+          tid={inputData.tid}
+        />
       </Grid>
     </Box>
   );

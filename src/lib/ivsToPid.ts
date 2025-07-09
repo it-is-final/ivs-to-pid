@@ -191,7 +191,7 @@ export function recoverPokemonOriginSeedsFromIvs(
     specialAttack: number,
     specialDefense: number,
     speed: number,
-): readonly IvToPidState[] {
+): IvToPidState[] {
     const results: IvToPidState[] = [];
     const ivSeedsMethod12 = recoverIvSeed(
         hp,
@@ -241,22 +241,23 @@ function getPidGender(pid: number, genderRatio: GenderRatio): Gender {
     }
 }
 
-export function ivToPidResultFilter(
+export function ivToPidStateFilter(
     nature: Nature | null,
     gender: Gender,
     genderRatio: GenderRatio,
     ability: 0 | 1 | null,
-    result: IvToPidState,
-): boolean {
-    const pid = result.pid;
-    if (nature !== null && natures[pid % 25] !== nature) {
-        return false;
-    }
-    if (getPidGender(pid, genderRatio) !== gender) {
-        return false;
-    }
-    if (ability !== null && (pid & 1) !== ability) {
-        return false;
-    }
-    return true;
+): (state: IvToPidState) => boolean {
+    return (state: IvToPidState) => {
+        const pid = state.pid;
+        if (nature !== null && natures[pid % 25] !== nature) {
+            return false;
+        }
+        if (getPidGender(pid, genderRatio) !== gender) {
+            return false;
+        }
+        if (ability !== null && (pid & 1) !== ability) {
+            return false;
+        }
+        return true;
+    };
 }

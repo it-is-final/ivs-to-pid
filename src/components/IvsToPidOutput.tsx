@@ -25,12 +25,12 @@ import TableRow from "@mui/material/TableRow";
 import type { IvToPidState } from "../lib/ivsToPid";
 
 interface IvsToPidOutputProps {
-  results: IvToPidState[];
+  states: IvToPidState[];
   tid: number;
 }
 
-export default function IvsToPidOutput({ results, tid }: IvsToPidOutputProps) {
-  const resultEntries = results.map((result) => (
+export default function IvsToPidOutput({ states, tid }: IvsToPidOutputProps) {
+  const resultEntries = states.map((result) => (
     <TableRow key={result.pid}>
       <TableCell>{result.seed.toString(16)}</TableCell>
       <TableCell>{result.pid.toString(16)}</TableCell>

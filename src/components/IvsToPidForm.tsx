@@ -28,6 +28,8 @@ import {
   natures,
   genders,
   type IvToPidState,
+  recoverPokemonOriginSeedsFromIvs,
+  ivToPidResultFilter,
 } from "../lib/ivsToPid";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
@@ -103,7 +105,23 @@ export default function IvsToPidForm() {
   ));
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setResults([]);
+    const results = recoverPokemonOriginSeedsFromIvs(
+      inputData.hp,
+      inputData.attack,
+      inputData.defense,
+      inputData.specialAttack,
+      inputData.specialDefense,
+      inputData.speed,
+    ).filter((result) =>
+      ivToPidResultFilter(
+        inputData.nature !== "" ? inputData.nature : null,
+        inputData.gender,
+        inputData.genderRatio,
+        inputData.ability !== "" ? inputData.ability : null,
+        result,
+      ),
+    );
+    setResults(results);
   }
 
   return (

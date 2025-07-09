@@ -27,12 +27,14 @@ import {
   type Stat,
   natures,
   genders,
+  type IvToPidState,
 } from "../lib/ivsToPid";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
+import IvsToPidOutput from "./IvsToPidOutput";
 
 interface InputData {
   hp: number;
@@ -82,6 +84,7 @@ export default function IvsToPidForm() {
     genderRatio: "U",
     ability: "",
   });
+  const [results, setResults] = React.useState<IvToPidState[]>([]);
   const natureOptions = natures.map((nature) => (
     <MenuItem key={nature} value={nature}>
       {nature}
@@ -100,6 +103,7 @@ export default function IvsToPidForm() {
   ));
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setResults([]);
   }
 
   return (
@@ -287,6 +291,7 @@ export default function IvsToPidForm() {
             Find
           </Button>
         </Grid>
+        <IvsToPidOutput results={results} />
       </Grid>
     </Box>
   );

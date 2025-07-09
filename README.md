@@ -1,5 +1,31 @@
 # ivs-to-pid
 
+A React+Typescript inplementation of the **IVs to PID** tool in PokéFinder. Please note that this version does not support reversing the IVs of Pokémon originating from the GameCube games or generation IV Cute Charm.
+
+## Build Instructions
+
+0. Install node.js (if you have not already)
+1. Clone this repository:
+
+```
+git clone https://github.com/it-is-final/ivs-to-pid.git
+cd ivs-to-pid
+```
+
+2. Install dependencies: `npm i`
+3. Build: `npm run build`
+
+To preview the build application, use `npm run preview`. To run a live development server where changes can be seen instantly, use `npm run dev` instead.
+
+## Suggest features or report bugs
+
+*   [Issue tracker](https://github.com/it-is-final/ivs-to-pid/issues)
+*   Or you can send in a pull request.
+
+## Acknowledgements
+
+*   Admiral Fish and others for making [PokéFinder](https://github.com/Admiral-Fish/PokeFinder) where the IVs to PID implementation in this tool is largely based on.
+
 ## License
 
 © 2025 Luong “final” Truong

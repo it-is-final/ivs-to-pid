@@ -244,7 +244,11 @@ export default function IvsToPidForm() {
               id="gender-ratio-select"
               value={inputData.genderRatio}
               label="Gender ratio"
-              onChange={void 0}
+              onChange={(event) => {
+                const newInputData = { ...inputData };
+                newInputData.genderRatio = event.target.value;
+                setInputData(newInputData);
+              }}
               disabled={inputData.gender === "Gender unknown"}
             >
               <MenuItem

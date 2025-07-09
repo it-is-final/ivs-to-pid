@@ -16,6 +16,24 @@
  * along with ivs-to-pid. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import Container from "@mui/material/Container";
+import IvsToPidForm from "./components/IvsToPidForm";
+
+const theme = createTheme({
+  colorSchemes: {
+    dark: true,
+  },
+});
+
 export default function App() {
-  return <></>;
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Container component="main" maxWidth="md">
+        <IvsToPidForm />
+      </Container>
+    </ThemeProvider>
+  );
 }

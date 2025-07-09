@@ -273,10 +273,18 @@ export default function IvsToPidForm() {
                 if (newGender === "Gender unknown") {
                   newInputData.genderRatio = "U";
                 }
-                if (newGender === "Male") {
+                if (
+                  newGender === "Male" &&
+                  (newInputData.genderRatio === "U" ||
+                    newInputData.genderRatio === "F")
+                ) {
                   newInputData.genderRatio = "M";
                 }
-                if (newGender === "Female") {
+                if (
+                  newGender === "Female" &&
+                  (newInputData.genderRatio === "U" ||
+                    newInputData.genderRatio === "M")
+                ) {
                   newInputData.genderRatio = "F";
                 }
                 setInputData(newInputData);

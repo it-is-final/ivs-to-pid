@@ -17,6 +17,16 @@
  * along with ivs-to-pid. If not, see <https://www.gnu.org/licenses/>.
  */
 
+export const stats = [
+    "hp",
+    "attack",
+    "defense",
+    "specialAttack",
+    "specialDefense",
+    "speed",
+] as const;
+export type Stat = (typeof stats)[number];
+
 export const rngMethods = [
     "Method 1",
     "Reverse Method 1",
@@ -25,17 +35,17 @@ export const rngMethods = [
 ] as const;
 export type RngMethod = (typeof rngMethods)[number];
 
-export const genders = ["Male", "Female", "Gender unknown"] as const;
+export const genders = ["Gender unknown", "Male", "Female"] as const;
 export type Gender = (typeof genders)[number];
 
 export const genderRatios = [
+    "U",
     "M",
     "7M-1F",
     "3M-1F",
     "1M-1F",
     "1M-3F",
     "F",
-    "U",
 ] as const;
 export type GenderRatio = (typeof genderRatios)[number];
 
